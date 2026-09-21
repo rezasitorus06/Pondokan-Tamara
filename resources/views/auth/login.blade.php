@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login admin | Pondokan Tamara</title>
+    <title>Masuk sebagai admin | Pondokan Tamara</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="admin-page">
     <main class="login-shell">
         <a class="brand" href="{{ route('home') }}"><span class="brand-mark" aria-hidden="true"></span><span><strong>Pondokan</strong><small>Tamara admin</small></span></a>
         <section class="login-card">
-            <p class="eyebrow">Admin area</p>
+            <p class="eyebrow">Panel pengelola</p>
             <h1>Kelola kamar.</h1>
             <p class="admin-muted">Masuk untuk memperbarui status, harga, dan detail kamar.</p>
             @if($errors->any())<div class="form-error">{{ $errors->first() }}</div>@endif

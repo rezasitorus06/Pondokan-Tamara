@@ -54,7 +54,7 @@
         </section>
 
         <section class="rooms-section page-shell">
-            <div class="section-heading"><div><p class="eyebrow">Room finder</p><h2>Denah kamar</h2><div class="floor-switcher" id="floorSwitcher"><button class="floor-option active" data-floor="Lantai 1">Lantai 1</button><button class="floor-option" data-floor="Lantai 2">Lantai 2</button></div></div><div class="legend"><span><i class="available"></i> Tersedia</span><span><i class="occupied"></i> Terisi</span><span><i class="reserved"></i> Reserved</span></div></div>
+            <div class="section-heading"><div><p class="eyebrow">Cari kamar</p><h2>Denah kamar</h2><div class="floor-switcher" id="floorSwitcher"><button class="floor-option active" data-floor="Lantai 1">Lantai 1</button><button class="floor-option" data-floor="Lantai 2">Lantai 2</button></div></div><div class="legend"><span><i class="available"></i> Tersedia</span><span><i class="occupied"></i> Terisi</span><span><i class="reserved"></i> Dipesan</span></div></div>
             <div class="room-layout">
                 <div class="map-panel">
                     <div class="map-toolbar"><span>Sketsa penempatan kamar</span><span class="north">N ↑</span></div>
@@ -72,7 +72,7 @@
                             @if((int) $room['position'] == 11 && $room['floor'] === 'Lantai 1')
                                 <div class="room-tile special-position-tile position-11-label" data-location="{{ $room['location_key'] }}" data-floor="{{ $room['floor'] }}" data-position="11"><span>RUMAH PENJAGA KOS</span></div>
                             @else
-                                <button class="room-tile {{ $room['status'] }}" style="--room-slot: {{ $room['position'] }}" data-location="{{ $room['location_key'] }}" data-floor="{{ $room['floor'] }}" data-position="{{ $room['position'] }}" data-status="{{ $room['status'] }}" data-room="{{ $room['code'] }}" aria-label="Nomor kamar {{ $room['code'] }} - {{ $room['status'] }}">
+                                <button class="room-tile {{ $room['status'] }}" style="--room-slot: {{ $room['position'] }}" data-location="{{ $room['location_key'] }}" data-floor="{{ $room['floor'] }}" data-position="{{ $room['position'] }}" data-status="{{ $room['status'] }}" data-room="{{ $room['code'] }}" aria-label="Nomor kamar {{ $room['code'] }} - {{ $room['status'] === 'available' ? 'tersedia' : ($room['status'] === 'reserved' ? 'dipesan' : 'terisi') }}">
                                     <span>{{ ((int) $room['position'] === 11 && $room['floor'] === 'Lantai 2') ? 'VIP' : ($displayPositions[$room['floor']][$room['position']] ?? $room['position']) }}</span>
                                 </button>
                             @endif
@@ -86,12 +86,12 @@
                     <h3 id="detailCode">A-01</h3><p class="detail-type" id="detailType">Standard · Lantai 1</p>
                     <div class="detail-price"><span>Mulai dari</span><strong id="detailPrice">Rp 950.000</strong><small>/ bulan</small></div>
                     <div class="detail-meta"><span>⌗ <b id="detailSize">3 x 3 m</b><small>ukuran</small></span></div>
-                    <div class="detail-features"><span>Fasilitas kamar</span><ul id="detailFeatures"><li>Memuat fasilitas...</li></ul></div>
+                    <div class="detail-features"><span>Fasilitas kamar</span><ul id="detailFeatures"><li>Menyiapkan informasi fasilitas...</li></ul></div>
                     <a class="button button-dark full-button" id="detailWhatsapp" href="https://wa.me/6285270556636" target="_blank" rel="noreferrer">Tanyakan kamar ini <span>↗</span></a>
                     <p class="detail-footnote">Harga dan status dapat berubah. Konfirmasi langsung kepada pengelola.</p>
                 </aside>
             </div>
-            <div class="room-filters"><button class="filter active" data-filter="all">Semua kamar <b id="allFilterCount">14</b></button><button class="filter" data-filter="available">Tersedia <b id="availableFilterCount">8</b></button><button class="filter" data-filter="reserved">Reserved <b id="reservedFilterCount">3</b></button></div>
+            <div class="room-filters"><button class="filter active" data-filter="all">Semua kamar <b id="allFilterCount">14</b></button><button class="filter" data-filter="available">Tersedia <b id="availableFilterCount">8</b></button><button class="filter" data-filter="reserved">Dipesan <b id="reservedFilterCount">3</b></button></div>
         </section>
 
         <section class="about-section page-shell" id="tentang">
@@ -188,7 +188,7 @@
             } else {
                 featureList.innerHTML = '<li>Belum ada informasi fasilitas.</li>';
             }
-            document.querySelector('#detailStatus').textContent = room.status === 'available' ? 'Tersedia untuk disewa' : room.status === 'reserved' ? 'Sedang di-reserve' : 'Kamar sudah terisi';
+            document.querySelector('#detailStatus').textContent = room.status === 'available' ? 'Tersedia untuk disewa' : room.status === 'reserved' ? 'Sedang dipesan' : 'Kamar sudah terisi';
             document.querySelector('.room-detail').dataset.status = room.status;
             document.querySelector('#detailWhatsapp').href = whatsappMessage(room);
         };
